@@ -17,6 +17,9 @@ Codyssey 10 · 3~5인 팀 GitHub 협업 실습. 결과물은 코드가 아니라
 
 | 함수 | 파일 | 작성자 |
 |---|---|---|
+| to_snake_case | src/utils/string_utils.py | @P516n |
+| to_camel_case | src/utils/string_utils.py | @P516n |
+| to_pascal_case | src/utils/string_utils.py | @P516n |
 
 ## 문서
 
