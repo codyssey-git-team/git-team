@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 편집기 / OS
+.vscode/
+.idea/
+.DS_Store
