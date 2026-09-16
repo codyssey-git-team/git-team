@@ -2,7 +2,44 @@
 
 ## 브랜치 전략 / 네이밍 규칙
 
-TODO(@Jeong-Yun-Choi)
+### GitHub Flow
+
+우리 팀은 GitHub Flow를 사용한다.
+
+- `main`: 항상 정상적으로 동작하는 상태를 유지한다.
+- `feature/*`: 기능 개발, 문서 작성 등 작업 단위별 브랜치로 사용한다.
+- 모든 변경 사항은 작업 브랜치에서 수행하고 Pull Request를 통해 `main`에 병합한다.
+- `main` 브랜치에는 직접 push하지 않는다.
+
+### 브랜치 네이밍 규칙
+
+기능 개발 및 일반 작업:
+
+`feature/<name>-<topic>`
+
+예시:
+
+- `feature/member1-contributing-branch`
+- `feature/member2-string-utils`
+- `feature/member3-date-utils`
+
+버그 수정 및 문제 해결:
+
+`fix/<name>-<topic>`
+
+예시:
+
+- `fix/member1-price-rounding`
+- `fix/member4-revert-chunk-default`
+
+브랜치 이름에는 작업자와 작업 내용을 식별할 수 있는 정보를 포함한다.
+
+### GitHub Flow를 선택한 이유
+
+1. 작업 단위별로 브랜치를 분리하여 여러 팀원이 동시에 작업하기 쉽다.
+2. 모든 변경을 PR과 리뷰를 통해 병합하므로 `main`을 안정적인 상태로 유지할 수 있다.
+3. Issue, PR, 리뷰 기록이 남아 작업 과정과 변경 이유를 추적하기 쉽다.
+
 
 
 
