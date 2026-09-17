@@ -1,0 +1,36 @@
+C:\Users\pdg10\Documents\GitHub\git-team>git log --oneline --graph -4
+* 2381602 (HEAD -> feature/P516n-string-utils, origin/feature/P516n-string-utils) feat: string_utils 카멜, 스
+네이크 유틸함수 구현
+*   1009c99 Merge pull request #6 from codyssey-git-team/Docs/commit-convention
+|\
+| * 213dbdf (origin/Docs/commit-convention) docs: CONTRIBUTING.md 커밋 메시지 컨벤션에 금지 조항 추가
+| * cac0ff2 docs: CONTRIBUTING.md에 커밋 메시지 컨벤션 작성
+|/
+
+
+C:\Users\pdg10\Documents\GitHub\git-team>git log --oneline --graph -5
+* 170dff0 (HEAD -> feature/P516n-string-utils) feat: to_pascal_case string 유틸 함수 구현
+* 2381602 (origin/feature/P516n-string-utils) feat: string_utils 카멜, 스네이크 유틸함수 구현
+*   1009c99 Merge pull request #6 from codyssey-git-team/Docs/commit-convention
+|\
+| * 213dbdf (origin/Docs/commit-convention) docs: CONTRIBUTING.md 커밋 메시지 컨벤션에 금지 조항 추가
+| * cac0ff2 docs: CONTRIBUTING.md에 커밋 메시지 컨벤션 작성
+|/
+
+
+C:\Users\pdg10\Documents\GitHub\git-team>git rebase -i HEAD~2
+[detached HEAD 5db7a0d] feat: string_utils 카멜, 스네이크, 파스칼 유틸함수 구현
+ Date: Wed Sep 16 16:47:15 2026 +0900
+ 2 files changed, 44 insertions(+)
+ create mode 100644 src/utils/string_utils.py
+Successfully rebased and updated refs/heads/feature/P516n-string-utils.
+
+
+C:\Users\pdg10\Documents\GitHub\git-team>git log --oneline --graph -5
+* c87f437 (HEAD -> feature/P516n-string-utils) feat: string_utils 카멜, 스네이크, 파스칼 유틸함수 구현
+*   1009c99 Merge pull request #6 from codyssey-git-team/Docs/commit-convention
+|\
+| * 213dbdf (origin/Docs/commit-convention) docs: CONTRIBUTING.md 커밋 메시지 컨벤션에 금지 조항 추가
+| * cac0ff2 docs: CONTRIBUTING.md에 커밋 메시지 컨벤션 작성
+|/
+* 159c3df chore: 저장소 뼈대와 시드 파일 추가

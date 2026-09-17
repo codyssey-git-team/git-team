@@ -7,7 +7,60 @@
 
 ## 충돌 기록 #1 — 같은 hunk 수정 (`format_price` 반올림 vs 천 단위 쉼표)
 
-<!-- TODO(@P516n): PR #32 · #28 머지 후 작성. 참여자 / 상황 / 충돌 마커 / 해결 과정 / 결과 / 배운 점 -->
+### 참여자
+- 작성자(해결한 쪽): @P516n — `feature/p516n-price-comma`, PR #28
+- 상대(먼저 병합한 쪽): @Jeong-Yun-Choi — `feature/choi-price-rounding`, PR #32
+
+### 상황 (What happened)
+- 두 브랜치 모두 동일한 main 시점(`5946b60`)에서 분기하여 `src/utils/formatters.py`의 동일한 함수(`format_price`)를 수정했다.
+  - PR #32 (팀장님): 소수점 금액을 정수로 반올림하도록 수정 (`str(round(amount)) + "원"`, 커밋 `b1951b2`).
+  - PR #28 (P516n): 금액에 천 단위 쉼표를 추가하도록 수정 (`f"{amount:,}원"`, 커밋 `37f3225`).
+- PR #32가 먼저 main에 병합됐다(`95755ec`, 14:03). 직후 열려 있던 PR #28에 `This branch has conflicts that must be resolved — src/utils/formatters.py` 경고가 발생했다.
+
+![PR #28 충돌 표시](evidence/pr28-1%20%EB%B9%84%EC%9E%90%EB%AA%85%20%EC%B6%A9%EB%8F%8C%20%EB%B0%9C%EC%83%9D.png)
+
+### 충돌 내용 (Conflict markers)
+로컬에서 `git merge origin/main`을 실행했을 때 나타난 충돌 마커 원문:
+
+```python
+def format_price(amount):
+<<<<<<< HEAD
+    """금액에 천 단위 쉼표를 붙여 문자열로 변환한다."""
+    return f"{amount:,}원"
+=======
+    """금액을 정수로 반올림해 문자열로 변환한다."""
+    return str(round(amount)) + "원"
+>>>>>>> origin/main
+```
+
+- 동일 파일의 동일 라인(함수 본문 및 docstring)을 양쪽에서 서로 다르게 수정했기 때문에 Git이 자동 병합하지 못하고 내용 충돌(`CONFLICT (content)`)을 발생시켰다.
+
+### 해결 과정 (How)
+- 전략: combine — 어느 한쪽의 변경사항도 버릴 수 없는 기능이므로 두 의도를 모두 살려 결합.
+- 소수점 반올림(`round(amount)`)을 먼저 수행하고, 그 결과 정수에 천 단위 구분 쉼표(`,`)를 적용하는 `f"{round(amount):,}원"` 형태로 통합했다.
+- docstring 역시 두 기능의 의미를 모두 포함하도록 `"금액을 정수로 반올림하고 천 단위 쉼표를 붙여 문자열로 변환한다."`로 갱신했다.
+
+```python
+def format_price(amount):
+    """금액을 정수로 반올림하고 천 단위 쉼표를 붙여 문자열로 변환한다."""
+    return f"{round(amount):,}원"
+```
+
+- 검증:
+  - `python3 -c "from src.utils.formatters import format_price; print(format_price(1234.6))" → 1,235원` (반올림 + 쉼표 동시 적용 확인)
+  - `python3 -c "from src.utils.formatters import format_price; print(format_price(1234567))"` → `1,234,567원`
+- 커밋 및 푸시:
+  - `git add src/utils/formatters.py` → `git commit` (머지 커밋 `f254ca2`) → `git push origin feature/p516n-price-comma`.
+
+### 결과 (Outcome)
+- PR #28의 상태가 `CONFLICTING`에서 `MERGEABLE`로 전환되었다.
+- 리뷰어(@sangwoo-codyssey) 및 팀장(@Jeong-Yun-Choi) 승인 후 PR #28이 main에 병합 완료되었다 (머지 커밋 `6404a49`, Issue #26 자동 close).
+- 관련: Issue #29 · PR #32 (머지 `95755ec`) · Issue #26 · PR #28 (작업 `37f3225`, 충돌 해결 `f254ca2`, 머지 `6404a49`).
+
+### 배운 점 (Learnings)
+- 동일 hunk 충돌 시 combine 전략의 중요성: 양쪽 모두 필요한 기능(반올림 + 포맷팅)일 경우, 단순히 어느 한쪽을 덮어쓰지 않고 로직을 결합해야 한다.
+- docstring 및 스펙 동기화: 코드 로직만 합치면 함수 설명(docstring)이 불일치하게 되므로, 설명문도 결합된 스펙에 맞춰 함께 수정해야 한다.
+- merge를 통한 해결 기록 보존: rebase 대신 merge 커밋(`f254ca2`)을 생성함으로써 충돌이 발생했고 어떻게 해결되었는지 히스토리에 명확한 증거로 남길 수 있었다.
 
 
 
