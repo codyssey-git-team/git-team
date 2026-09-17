@@ -1,0 +1,6 @@
+# PR #46 타임라인 — 리뷰어 미지정으로 열었으나 CODEOWNERS(docs/ → @Jeong-Yun-Choi @sangwoo-codyssey, 작성자 제외) 가 팀장을 자동 요청
+# gh api repos/codyssey-git-team/git-team/issues/46/timeline  (2026-09-17 16:08)
+2026-09-17T06:39:34Z review_requested actor=sangwoo-codyssey requested=Jeong-Yun-Choi state=-
+2026-09-17T06:55:09Z reviewed actor=Jeong-Yun-Choi requested=- state=commented
+2026-09-17T06:58:47Z reviewed actor=Jeong-Yun-Choi requested=- state=approved
+2026-09-17T07:04:15Z merged actor=sangwoo-codyssey requested=- state=-
