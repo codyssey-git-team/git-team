@@ -17,6 +17,8 @@ Codyssey 10 · 3~5인 팀 GitHub 협업 실습. 결과물은 코드가 아니라
 
 | 함수 | 파일 | 작성자 |
 |---|---|---|
+| `chunk(items, size)` | `src/utils/list_utils.py` | @sangwoo-codyssey |
+| `days_between(d1, d2)` | `src/utils/date_utils.py` | @whoawoodev |
 
 ## 문서
 
