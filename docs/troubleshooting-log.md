@@ -83,7 +83,15 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
 - 주의할 점 (원격 히스토리 · 협업 영향):
   - 원격 `main` 은 보호 규칙(force push 금지, PR 필수)이라 `reset` 으로 커밋을 지울 수 없다. 지울 수 있는 상황이었더라도 이미 pull 한 팀원의 로컬 히스토리와 어긋나 그쪽에서 다시 문제가 된다.
   - 머지 커밋은 `-m` 을 지정하지 않으면 revert 가 거부된다. 부모 번호를 잘못 고르면(`-m 2`) main 쪽 변경이 되돌아가므로, 끝나고 `git diff <main 쪽 부모> HEAD` 가 비는지 반드시 확인한다.
-  - 되돌린 뒤 같은 브랜치(`feature/sangwoo-list-default-size`)를 다시 머지해도 변경이 들어오지 않는다 — git 은 `72106f0` 을 이미 히스토리에 있는 커밋으로 본다. 같은 변경을 다시 넣으려면 revert 커밋을 revert 하거나 새 커밋으로 만들어야 한다.
+  - 되돌린 뒤 같은 브랜치의 커밋 `72106f0` 을 다시 머지해도 변경이 들어오지 않는다 — git 은 이미 히스토리에 있는 커밋으로 본다. main `34383fc` 에서 확인:
+
+    ```
+    $ git merge 72106f0
+    Already up to date.
+    $ git merge-base --is-ancestor 72106f0 main && echo ancestor
+    ancestor
+    ```
+    같은 변경을 다시 넣으려면 revert 커밋을 revert 하거나 새 커밋으로 만들어야 한다.
   - revert 도 일반 변경과 똑같이 PR 과 리뷰를 거쳤다 (#44). 되돌리는 것 자체가 팀이 확인해야 할 변경이다.
 - 관련: Issue #38 · PR #39 (머지 `103473f`) · Issue #42 · PR #44 (커밋 `af2012f`, 머지 `d65177e`) · 팀장·P516n 의 앞선 사례 PR #18 (`35fc0ea`)
 

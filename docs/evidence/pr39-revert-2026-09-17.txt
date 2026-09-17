@@ -94,3 +94,11 @@ $ git diff 00a7b04 main --stat  # 파일 내용은 #39 이전과 동일
  .github/CODEOWNERS | 25 +++++++++++++++++++++++++
  1 file changed, 25 insertions(+)
 (CODEOWNERS 는 그 사이 머지된 #43 의 것 — list_utils.py·README 는 차이 없음 = #39 변경만 정확히 되돌아감)
+
+## 7. (리뷰 반영, PR #48) 되돌린 커밋을 다시 머지해 보면 — main 34383fc
+$ git merge 72106f0
+Already up to date.
+$ git merge-base --is-ancestor 72106f0 main && echo ancestor
+ancestor
+$ git log --oneline -1   # 커밋이 새로 생기지 않음
+34383fc Merge pull request #46 from codyssey-git-team/feature/sangwoo-troubleshooting-skeleton
