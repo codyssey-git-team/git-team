@@ -22,7 +22,7 @@ PR 옆 해시는 main 의 머지 커밋. 리뷰 반영 옆 해시는 리뷰 코�
 ### 팀장 — @Jeong-Yun-Choi
 
 - Issues: #10, #17, #20, #22, #29, #52
-- PRs (머지 5): [#14](https://github.com/codyssey-git-team/git-team/pull/14) `8b3c5f4` 브랜치 전략 · [#18](https://github.com/codyssey-git-team/git-team/pull/18) `dca7855` #14 revert · [#21](https://github.com/codyssey-git-team/git-team/pull/21) `804eeec` 브랜치 전략 재PR · [#25](https://github.com/codyssey-git-team/git-team/pull/25) `b7f260e` clamp · [#32](https://github.com/codyssey-git-team/git-team/pull/32) `95755ec` format_price 반올림 · [#54](https://github.com/codyssey-git-team/git-team/pull/54) stash 기록 — 머지 `_______` (예정)
+- PRs (머지 6): [#14](https://github.com/codyssey-git-team/git-team/pull/14) `8b3c5f4` 브랜치 전략 · [#18](https://github.com/codyssey-git-team/git-team/pull/18) `dca7855` #14 revert · [#21](https://github.com/codyssey-git-team/git-team/pull/21) `804eeec` 브랜치 전략 재PR · [#25](https://github.com/codyssey-git-team/git-team/pull/25) `b7f260e` clamp · [#32](https://github.com/codyssey-git-team/git-team/pull/32) `95755ec` format_price 반올림 · [#54](https://github.com/codyssey-git-team/git-team/pull/54) `6a4aa8d` stash 기록
 - Reviews: #8, #13, #33, #41, #46, #48, #50, #53
 - 리뷰 반영: #21 (P516n 의 `hotfix/` 규칙 제안 → #14 revert 후 재PR 로 반영) · #25 `a2150c6` (whoawoodev 의 `low > high` 지적 → `ValueError` + doctest)
 - 트러블슈팅: revert — #14 를 되돌린 #18 (Issue #17) 실행 · stash — `docs/troubleshooting-log.md` "시나리오: stash" (#54)
@@ -63,7 +63,7 @@ PR 옆 해시는 main 의 머지 커밋. 리뷰 반영 옆 해시는 리뷰 코�
 
 ## Evidence
 
-- Git history: `docs/git-history.txt` — `git log --oneline --graph --all` (예정, #54 머지 후 생성)
+- Git history: [docs/git-history.txt](docs/git-history.txt) — `git log --oneline --graph --decorate --all` (#54 머지 후 2026-09-17 생성)
 - Branch protection: [docs/evidence/branch-protection-2026-09-16.txt](docs/evidence/branch-protection-2026-09-16.txt) — admin 의 main 직접 push 가 `GH006` 으로 거부된 로그
 - CODEOWNERS 적용: [docs/evidence/pr46-codeowners-timeline-2026-09-17.txt](docs/evidence/pr46-codeowners-timeline-2026-09-17.txt) (리뷰어 미지정 PR #46 에 팀장 자동 요청) · [pr46-codeowners-auto-request-2026-09-17.jpg](docs/evidence/pr46-codeowners-auto-request-2026-09-17.jpg) · [pr46-codeowners-tooltip-2026-09-17.png](docs/evidence/pr46-codeowners-tooltip-2026-09-17.png) ("is a code owner" 툴팁)
 - 충돌: `docs/evidence/pr28-1 비자명 충돌 발생.png` (충돌 #1) · `docs/evidence/pr33-conflict-2026-09-17.png` (충돌 #2)
