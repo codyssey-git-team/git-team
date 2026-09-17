@@ -6,7 +6,51 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
 
 ## 시나리오: amend
 
-<!-- TODO(@P516n): 참여자 / 상황 / 시도한 명령·절차 / 결과·주의점 / Why -->
+### 참여자
+- 실행·기록: @P516n — `feature/P516n-string-utils` 에서 커밋 메시지 오탈자 발생 후 amend 로 정정, PR #19 작성자
+- 리뷰어: @sangwoo-codyssey — PR #19 리뷰어
+
+### 상황
+- P2 문자열 유틸 함수 작업을 진행하며 `src/utils/string_utils.py`에 `to_snake_case` 함수를 구현한 후 커밋했다 (`15c7958`).
+- 직후 확인 결과 커밋 메시지에 오탈자(`feat: add string utlis`)가 포함된 것을 발견했다.
+- 아직 원격에 push하기 전인 로컬 브랜치 상태였으므로, 오탈자 수정을 위해 불필요한 별도 커밋을 추가하지 않고 직전 커밋 메시지를 바로잡기로 했다.
+
+  ![커밋 메시지 오탈자 amend 수행](evidence/pr-19-1%20%EC%BB%A4%EB%B0%8B%20%EB%A9%94%EC%8B%9C%EC%A7%80%20%EC%98%A4%ED%83%88%EC%9E%90%20amend%20%EC%88%98%ED%96%89.png)
+
+### 시도한 명령/절차
+- 직전 커밋 메시지 확인 → `git commit --amend`로 메시지 정정 → 변경된 커밋 해시 확인.
+
+  ```
+  $ git log --oneline -1
+  15c7958 (HEAD -> feature/P516n-string-utils) feat: add string utlis
+
+  $ git commit --amend -m "feat: to_snake_case string 유틸함수 구현"
+  [feature/P516n-string-utils c608197] feat: to_snake_case string 유틸함수 구현
+   Date: Wed Sep 16 16:47:15 2026 +0900
+   2 files changed, 16 insertions(+)
+   create mode 100644 src/utils/string_utils.py
+
+  $ git log --oneline -1
+  c608197 (HEAD -> feature/P516n-string-utils) feat: to_snake_case string 유틸함수 구현
+  ```
+
+- 오타 커밋 해시 `15c7958`이 amend 후 `c608197`로 완전히 새로운 커밋 객체로 대체되었음을 확인했다.
+- 전문 텍스트: [evidence/pr19-1 커밋 메시지 오탈자 amend 수행 log.txt](evidence/pr19-1%20%EC%BB%A4%EB%B0%8B%20%EB%A9%94%EC%8B%9C%EC%A7%80%20%EC%98%A4%ED%83%88%EC%9E%90%20amend%20%EC%88%98%ED%96%89%20log.txt)
+
+### 결과
+- 오탈자가 포함된 이전 커밋 `15c7958`은 대체되어 히스토리에서 사라지고, 올바른 커밋 메시지를 가진 `c608197`로 깔끔하게 갱신되었다.
+- 이후 추가 구현 및 PR #19(Closes #11)로 리뷰 및 머지 완료되었다.
+- 주의할 점 (원격 히스토리 · 협업 영향):
+  - **`amend`는 기존 커밋을 단순히 수정하는 것이 아니라 새로운 커밋 객체(새 SHA-1 해시)를 생성한다.**
+  - 따라서 **아직 원격(remote) 저장소에 push되지 않은 로컬 커밋에만 사용**해야 한다. 이미 원격에 push된 커밋에 amend를 수행하고 push하면 `non-fast-forward` 거부가 발생하며, 이를 `git push --force`로 밀어 넣으면 해당 브랜치를 공유하는 동료들의 히스토리와 어긋나 큰 혼란을 초래한다.
+  - 이미 원격에 공유된 커밋이라면 amend 대신 오류를 바로잡는 새 커밋(`fix: ...`)을 작성하거나 `revert`를 사용해야 한다.
+  - `git commit --amend`는 오직 **직전 커밋(HEAD)** 하나만 수정할 수 있다. 그보다 이전 커밋을 수정하려면 `interactive rebase(git rebase -i)`를 사용해야 한다.
+- 관련: Issue #11 · PR #19 (초기 오타 `15c7958`, amend `c608197`)
+
+### 왜 이 방법을 선택했는가(Why)
+- **Git 히스토리의 청결성(Clean History)**: 단순한 커밋 메시지 오탈자나 사소한 누락 때문에 불필요한 수정 커밋을 남기지 않고, 처음부터 완벽했던 것처럼 깔끔한 히스토리를 유지할 수 있다.
+- **원격 미반영 커밋에 대한 안전한 수정**: push하기 전 로컬 저장소 상태에서는 커밋 해시가 바뀌더라도 다른 협업자에게 아무런 영향을 주지 않으므로, 히스토리 재작성(History Rewriting)의 리스크 없이 안전하게 변경할 수 있다.
+- `git reset --soft HEAD~1` 후 다시 `git commit`하는 대안도 있지만, `git commit --amend`는 단 한 줄의 명령어로 커밋 메시지 수정 및 추가 스테이징 파일 포함을 직관적이고 빠르게 처리할 수 있어 최적의 선택이었다.
 
 
 
