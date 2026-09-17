@@ -45,7 +45,7 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
   - 따라서 **아직 원격(remote) 저장소에 push되지 않은 로컬 커밋에만 사용**해야 한다. 이미 원격에 push된 커밋에 amend를 수행하고 push하면 `non-fast-forward` 거부가 발생하며, 이를 `git push --force`로 밀어 넣으면 해당 브랜치를 공유하는 동료들의 히스토리와 어긋나 큰 혼란을 초래한다.
   - 이미 원격에 공유된 커밋이라면 amend 대신 오류를 바로잡는 새 커밋(`fix: ...`)을 작성하거나 `revert`를 사용해야 한다.
   - `git commit --amend`는 오직 **직전 커밋(HEAD)** 하나만 수정할 수 있다. 그보다 이전 커밋을 수정하려면 `interactive rebase(git rebase -i)`를 사용해야 한다.
-- 관련: Issue #11 · PR #19 (초기 오타 `15c7958`, amend `c608197`)
+- 관련: Issue #11 · PR #19 (초기 오타 `15c7958`, amend `c608197`, squash 후 c87f437))
 
 ### 왜 이 방법을 선택했는가(Why)
 - **Git 히스토리의 청결성(Clean History)**: 단순한 커밋 메시지 오탈자나 사소한 누락 때문에 불필요한 수정 커밋을 남기지 않고, 처음부터 완벽했던 것처럼 깔끔한 히스토리를 유지할 수 있다.
