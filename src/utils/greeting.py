@@ -3,7 +3,7 @@
 
 def greet(name):
     """이름을 받아 인사말을 반환한다."""
-    return "Hello, " + name
+    return f"Hello, {name}!"
 
 
 def farewell(name):
