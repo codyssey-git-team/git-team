@@ -12,7 +12,86 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
 
 ## 시나리오: reset
 
-<!-- TODO(@whoawoodev): 참여자 / 상황 / 시도한 명령·절차 / 결과·주의점 / Why -->
+### 참여자
+- 실행·기록: @whoawoodev — `main` 에 직접 커밋한 뒤 되돌려 `feature/whoawoodev-date-utils` 로 옮김, 이후 PR #13 작성자
+- 리뷰어: @P516n — 이 기록 PR 리뷰
+
+### 상황
+- P2 유틸 함수 작업을 시작하면서 브랜치를 만들지 않고 `main` 에서 `src/utils/date_utils.py` 를 작성해 커밋했다 (`ffa1ad8`).
+- `git push origin main` 이 Branch Protection 에 막혔다 (`GH006: Protected branch update failed` — main 직접 push 금지).
+- 커밋은 취소해야 하지만 작성한 파일은 잃지 않고 feature 브랜치로 옮겨야 했다. 커밋이 원격에 올라가지 않았으므로(push 거부) 로컬에서 되돌려도 다른 팀원에게 영향이 없는 상태였다.
+
+  ![push 거부](evidence/pr13-reset-01-push-rejected-2026-09-16.png)
+
+### 시도한 명령/절차
+- `main` 에서 잘못 커밋 → push 거부 확인 → `--soft` 로 커밋만 취소 → staged 유지 확인 → 브랜치 생성 → 같은 메시지로 재커밋 → 로컬 `main` 이 `origin/main` 과 같은지 확인.
+
+  ```
+  $ git add src/utils/date_utils.py && git commit -m "feat: add days_between date util"
+  [main ffa1ad8] feat: add days_between date util
+   1 file changed, 10 insertions(+)
+   create mode 100644 src/utils/date_utils.py
+
+  $ git push origin main
+  Enumerating objects: 8, done.
+  Counting objects: 100% (8/8), done.
+  Delta compression using up to 8 threads
+  Compressing objects: 100% (5/5), done.
+  Writing objects: 100% (5/5), 638 bytes | 638.00 KiB/s, done.
+  Total 5 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+  remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+  remote: error: GH006: Protected branch update failed for refs/heads/main.
+  remote:
+  remote: - Changes must be made through a pull request.
+  To https://github.com/codyssey-git-team/git-team.git
+   ! [remote rejected] main -> main (protected branch hook declined)
+  error: failed to push some refs to 'https://github.com/codyssey-git-team/git-team.git'
+
+  $ git reset --soft HEAD~1
+
+  $ git status
+  On branch main
+  Your branch is up to date with 'origin/main'.
+
+  Changes to be committed:
+    (use "git restore --staged <file>..." to unstage)
+  	new file:   src/utils/date_utils.py
+
+  $ git switch -c feature/whoawoodev-date-utils
+  Switched to a new branch 'feature/whoawoodev-date-utils'
+
+  $ git commit -m "feat: add days_between date util"
+  [feature/whoawoodev-date-utils 1673b46] feat: add days_between date util
+   1 file changed, 10 insertions(+)
+   create mode 100644 src/utils/date_utils.py
+
+  $ git log origin/main..main
+  (출력 없음 — 로컬 main 에 origin/main 보다 앞선 커밋이 없음)
+  ```
+
+  ![reset --soft 후 git status](evidence/pr13-reset-02-soft-status-2026-09-16.png)
+  ![브랜치 생성 후 재커밋](evidence/pr13-reset-03-branch-recommit-2026-09-16.png)
+
+- reflog 에도 순서가 그대로 남아 있다: `ffa1ad8 commit` → `9157387 reset: moving to HEAD~1` → `checkout: moving from main to feature/whoawoodev-date-utils` → `1673b46 commit`.
+
+### 결과
+- 로컬 `main` 은 `origin/main`(`9157387`) 과 동일한 상태로 복구됐다 (`Your branch is up to date with 'origin/main'`).
+- 작성한 파일은 staged 상태로 유지되어, 새 브랜치에서 같은 메시지로 다시 커밋했다 (`1673b46`). 취소된 `ffa1ad8` 은 브랜치 히스토리에서 사라졌고 reflog 에만 남는다.
+- 이후 해당 브랜치를 push 하고 PR #13 (Closes #12) 으로 진행 → 리뷰 반영 `33cc40a` → 머지 `104e68c`.
+- 주의할 점 (원격 히스토리 · 협업 영향):
+  - `reset` 은 **push 되지 않은 로컬 커밋**에만 쓴다. 이미 원격에 올라간 커밋을 reset 하면 다른 팀원의 히스토리와 어긋나 force push 가 필요해지므로, 그 경우에는 `revert` 를 쓴다 (→ 시나리오: revert).
+  - 이번에는 push 가 Branch Protection 에 거부되어 원격에 아무것도 올라가지 않았기 때문에 reset 이 안전했다. 보호 규칙이 없었다면 잘못된 커밋이 그대로 `main` 에 들어갔을 상황이다.
+  - `reset` 옵션별 차이:
+    - `--soft`: 커밋만 취소. 변경 사항은 staged 유지 → 바로 다시 커밋 가능
+    - `--mixed` (기본값): 커밋 + staged 취소. 변경 사항은 working tree 에 남음 → `git add` 부터 다시
+    - `--hard`: 커밋 + staged + working tree 변경 전부 삭제 → 작업 내용이 사라지므로 주의
+  - 실수로 잘못 reset 했다면 `git reflog` 로 이전 HEAD 를 찾아 `git reset --hard <해시>` 로 돌아올 수 있다 (reflog 는 로컬에만 있고 기본 90일 보관).
+
+### 왜 이 방법을 선택했는가(Why)
+- 목적이 "커밋을 다른 브랜치로 옮기기" 라서 파일 변경은 그대로 두고 커밋만 풀어야 했다. `--soft` 는 staged 상태를 유지하므로 브랜치 전환 후 `git add` 없이 바로 `git commit` 만 하면 된다.
+- `--hard` 를 쓰면 작성한 파일 자체가 사라지고, `--mixed` 는 `git add` 를 한 번 더 해야 해서 이 상황에는 `--soft` 가 가장 맞다.
+- `revert` 가 아닌 이유: revert 는 되돌리는 커밋을 하나 더 쌓는 방식이라 원격에 공유된 커밋에 쓴다. 이 커밋은 원격에 올라간 적이 없고 히스토리에 남길 이유도 없어서(브랜치를 잘못 고른 것뿐), 흔적 없이 지우는 reset 이 맞다.
+- 관련: Issue #12 · PR #13 (커밋 `1673b46`, 반영 `33cc40a`, 머지 `104e68c`)
 
 
 
