@@ -1,0 +1,14 @@
+C:\Users\pdg10\Documents\GitHub\git-team>git log --oneline -1
+15c7958 (HEAD -> feature/P516n-string-utils) feat: add string utlis
+
+C:\Users\pdg10\Documents\GitHub\git-team>git commit --amend -m "feat: to_snake_case string 유틸함수 구현"
+[feature/P516n-string-utils c608197] feat: to_snake_case string 유틸함수 구현
+ Date: Wed Sep 16 16:47:15 2026 +0900
+ 2 files changed, 16 insertions(+)
+ create mode 100644 src/utils/string_utils.py
+
+C:\Users\pdg10\Documents\GitHub\git-team>git log --oneline -1
+c608197 (HEAD -> feature/P516n-string-utils) feat: to_snake_case string 유틸함수 구현
+
+📝 문서 기록 팁 (troubleshooting-log.md):
+"오타 커밋 해시: 15c7958 → amend 후 해시: c608197 로 변경됨. amend는 기존 커밋의 글자만 고치는 게 아니라 완전히 새로운 커밋 객체를 만든다는 것을 확인."
