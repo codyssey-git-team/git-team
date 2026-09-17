@@ -1,0 +1,96 @@
+# revert 실습 기록 — 2026-09-17 15:02
+
+## 1. #39 머지 후 main 상태
+$ git log --oneline --graph -6
+*   103473f Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size
+|\  
+| * 72106f0 feat: chunk size 생략 시 자르지 않고 통째로 반환
+|/  
+*   00a7b04 Merge pull request #35 from codyssey-git-team/feature/sangwoo-conflict-log
+|\  
+| * e0b0050 docs: 충돌 #2 결과에 PR #33 머지 SHA 추가
+| * f8b08af docs: 충돌 #2 배운 점의 rename 감지 설명 정정
+| * fdd467f docs: conflict-resolution 뼈대 및 충돌 #2 기록 추가
+
+## 2. 부작용 재현 — 계산된 size 가 0 이 되는 호출
+$ python3 -c "..."
+scores=[88, 92, 75]  n_groups=10  size=len(scores)//n_groups=0
+chunk(scores, size) -> [[88, 92, 75]]   # 예외 없이 전체가 한 조각
+chunk(scores)       -> [[88, 92, 75]]   # size 를 빠뜨린 호출도 조용히 통과
+chunk([], 3)        -> []    vs   chunk([], 0) -> [[]]
+
+# 머지 전(#16 기준, 00a7b04)에는 같은 호출이:
+chunk(scores, 0)    -> ValueError: size must be positive, got 0
+chunk(scores)       -> TypeError: chunk() missing 1 required positional argument: 'size'
+
+## 3. 버그 Issue #42 → revert 브랜치
+$ git switch main && git pull --ff-only
+Already on 'main'
+Your branch is up to date with 'origin/main'.
+Already up to date.
+$ git log --oneline -1
+103473f Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size
+$ git switch -c fix/sangwoo-revert-chunk-default
+Switched to a new branch 'fix/sangwoo-revert-chunk-default'
+
+## 4. git revert -m 1 103473f  (머지 커밋이므로 -m 1 = main 쪽 부모 00a7b04 기준)
+$ git revert -m 1 103473f --no-edit
+[fix/sangwoo-revert-chunk-default af2012f] Revert "Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size"
+ Date: Thu Sep 17 15:03:31 2026 +0900
+ 2 files changed, 7 insertions(+), 12 deletions(-)
+
+$ git log --oneline -3
+af2012f Revert "Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size"
+103473f Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size
+72106f0 feat: chunk size 생략 시 자르지 않고 통째로 반환
+
+$ git show --stat HEAD
+af2012f Revert "Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size"
+
+This reverts commit 103473f17cbaf5e52e0c9fa08ead7112e07c0fc1, reversing
+changes made to 00a7b042fb6a6e5d81fd5783c0b4d61c0bb4f59d.
+
+
+ README.md               |  2 +-
+ src/utils/list_utils.py | 17 ++++++-----------
+ 2 files changed, 7 insertions(+), 12 deletions(-)
+
+## 5. 되돌린 결과 검증
+$ python3 -m doctest src/utils/list_utils.py -v | tail -3
+3 tests in 2 items.
+3 passed and 0 failed.
+Test passed.
+$ python3 -c "from src.utils.list_utils import chunk; chunk([88, 92, 75], 0)"
+ValueError: size must be positive, got 0
+$ git diff 00a7b04 HEAD --stat   # main 쪽 부모와 내용 차이 없어야 함
+(no diff = 파일 내용이 #39 이전으로 완전히 복귀)
+
+## 6. revert PR #44 리뷰·머지
+- whoawoodev Approve (15:18): "git diff 00a7b04 HEAD가 비어 있는 것 확인했습니다. #39 이전 상태로 돌아갔습니다."
+- sangwoo 머지 d65177e (15:20, 작성자, 브랜치 삭제) · Issue #42 close
+
+$ git log --oneline --graph -8   # main: 도입(103473f)과 취소(revert 머지)가 둘 다 남음
+*   d65177e Merge pull request #44 from codyssey-git-team/fix/sangwoo-revert-chunk-default
+|\  
+| * af2012f Revert "Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size"
+* |   e1594d1 Merge pull request #43 from codyssey-git-team/feature/whoawoodev-codeowners
+|\ \  
+| |/  
+|/|   
+| * ed0788f chore: add CODEOWNERS for path-based reviewer assignment
+* |   103473f Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size
+|\ \  
+| |/  
+|/|   
+| * 72106f0 feat: chunk size 생략 시 자르지 않고 통째로 반환
+|/  
+*   00a7b04 Merge pull request #35 from codyssey-git-team/feature/sangwoo-conflict-log
+|\  
+| * e0b0050 docs: 충돌 #2 결과에 PR #33 머지 SHA 추가
+
+$ python3 -c "from src.utils.list_utils import chunk; chunk([88, 92, 75], 0)"
+ValueError: size must be positive, got 0
+$ git diff 00a7b04 main --stat  # 파일 내용은 #39 이전과 동일
+ .github/CODEOWNERS | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+(CODEOWNERS 는 그 사이 머지된 #43 의 것 — list_utils.py·README 는 차이 없음 = #39 변경만 정확히 되돌아감)
