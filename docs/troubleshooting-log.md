@@ -186,8 +186,8 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
 
 ### 참여자
 
-- 실행·기록: Jeong-Yun-Choi (팀장)
-- 리뷰어: @sangwoo-codyssey (CODEOWNERS 자동 요청)
+- 실행·기록: @Jeong-Yun-Choi — `feature/choi-log-stash` 작성자, 로컬 `main`의 미커밋 문서를 stash로 보관하고 최신 `main` 반영 및 충돌 해결을 수행
+- 리뷰어: @sangwoo-codyssey — `git pull` 거부와 `git stash pop`의 content 충돌 재현 결과를 검토하고 Approve
 
 ### 상황
 
