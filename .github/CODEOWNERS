@@ -1,0 +1,25 @@
+# .github/CODEOWNERS
+# 뒤에 오는 규칙이 우선 — 넓은 경로를 위에, 좁은 경로를 아래에.
+# 주석은 줄 맨 앞에서만. (오너 뒤에 붙이면 문법 오류)
+
+# 기본값: 다른 규칙에 안 걸리는 파일(README, SUBMISSION, .gitignore)은 팀장
+*                           @Jeong-Yun-Choi
+
+# 인프라: 템플릿·보호 규칙·이 파일 자체
+/.github/                   @sangwoo-codyssey
+
+# 협업 문서: 팀장(뼈대 PR 작성자) + 인프라 담당
+/docs/                      @Jeong-Yun-Choi @sangwoo-codyssey
+
+# 유틸 패키지 기본 오너 → 아래 파일별 규칙이 덮어씀
+/src/utils/                 @P516n @whoawoodev
+
+# 함수 파일은 만든 사람이 오너 (내 함수가 바뀌면 내가 본다)
+/src/utils/math_utils.py    @Jeong-Yun-Choi
+/src/utils/string_utils.py  @P516n
+/src/utils/date_utils.py    @whoawoodev
+/src/utils/list_utils.py    @sangwoo-codyssey
+
+# 충돌 실습 파일은 충돌 당사자 둘
+/src/utils/formatters.py    @Jeong-Yun-Choi @P516n
+/src/utils/greeting.py      @whoawoodev @sangwoo-codyssey
