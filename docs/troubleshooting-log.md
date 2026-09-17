@@ -187,7 +187,7 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
 ### 참여자
 
 - 실행·기록: Jeong-Yun-Choi (팀장)
-- 리뷰어: 팀원4 (CODEOWNERS 자동 요청)
+- 리뷰어: @sangwoo-codyssey (CODEOWNERS 자동 요청)
 
 ### 상황
 
@@ -195,7 +195,7 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
 
 ### 시도한 명령·절차
 
-- `feature/choi-log-stash`를 `d65177e`에서 생성하고, `docs/troubleshooting-log.md`에 stash 시나리오의 참여자와 상황 초안을 작성했다. 커밋하지 않은 채 파일을 stage했다.
+- `feature/choi-log-stash`를 `d65177e`에서 생성하고, 이미 추적 중인 `docs/troubleshooting-log.md`의 stash 섹션에 참여자와 상황 초안을 작성했다. 커밋하지 않은 채 파일을 stage했다.
 - `main`으로 전환한 뒤 pull을 시도했다. 로컬 변경이 원격 변경으로 덮어쓰일 수 있어 pull이 거부되었다.
 
   ```
@@ -220,14 +220,19 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
   Fast-forward
   ```
 
-- 작업 브랜치에서 최신 `main`을 반영한 뒤 stash를 적용했다. 원격의 같은 파일과 stash 초안이 모두 파일을 추가·수정한 상태여서 content 충돌이 발생했다.
+- `d65177e`에서 문서가 이미 추적 중인 것을 확인했다. 같은 파일의 같은 위치를 원격 `main`과 stash 초안이 각각 수정한 상태에서 작업 브랜치에 최신 `main`을 반영한 뒤 stash를 적용해 content 충돌이 발생했다.
+
+  ```
+  $ git ls-tree d65177e docs/troubleshooting-log.md
+  100644 blob beb922a9d5c0d4b276e0b21cb6396f57b112a4c0	docs/troubleshooting-log.md
+  ```
 
   ```
   $ git switch feature/choi-log-stash
   $ git merge --ff-only main
   $ git stash pop
   Auto-merging docs/troubleshooting-log.md
-  CONFLICT (add/add): Merge conflict in docs/troubleshooting-log.md
+  CONFLICT (content): Merge conflict in docs/troubleshooting-log.md
   The stash entry is kept in case you need it again.
   $ git status --short
   UU docs/troubleshooting-log.md
@@ -247,7 +252,7 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
 - `git pull`이 거부되면 커밋하거나 stash해야 한다. stash는 로컬 전용이라 push되지 않는다.
 - 커밋하지 않은 수정은 브랜치를 전환해도 작업 트리에 남을 수 있다.
 - `git stash pop`에서 충돌이 발생하면 stash 항목이 자동 삭제되지 않고 남는다. 충돌 해결과 검증이 끝난 뒤 `git stash drop`으로 삭제한다.
-- 새 파일은 기본 `git stash`에 포함되지 않으므로 `git stash -u`가 필요하다. 이번 재현에서는 새 문서를 stage한 뒤 stash하여 일반 stash에 포함시켰다.
+- `d65177e`에서 `docs/troubleshooting-log.md`는 이미 추적 중인 파일이므로 일반 `git stash`로 수정사항이 보관된다. 반대로 새 파일을 stash하려면 기본 동작에 포함되지 않으므로 `git stash -u`가 필요하다.
 - `stash pop`은 현재 체크아웃한 브랜치에 적용된다. 적용 전에 반드시 브랜치를 확인한다.
 
 ### 왜 이 방법을 선택했는가(Why)
