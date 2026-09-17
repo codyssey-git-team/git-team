@@ -12,10 +12,11 @@
 - `hotfix/*`: `main`에서 발견된 긴급한 문제를 빠르게 수정해야 할 때 사용한다.
 - 모든 변경 사항은 작업 브랜치에서 수행하고 Pull Request를 통해 `main`에 병합한다.
 - `main` 브랜치에는 직접 push하지 않는다.
-- 병합이 완료된 작업 브랜치는 삭제한다. 브랜치 목록에는 진행 중인 작업만 남긴다.
+- 병합이 완료된 작업 브랜치는 **PR 작성자가** 삭제한다. 브랜치 목록에는 진행 중인 작업만 남긴다.
   - 원격: PR 페이지의 **Delete branch** 버튼 (또는 `git push origin --delete <branch>`)
   - 로컬: `git branch -d <branch>` 후 `git fetch --prune` 으로 원격 추적 브랜치까지 정리
   - 브랜치를 지워도 PR·커밋·리뷰 기록은 그대로 남고, 필요하면 PR 페이지의 **Restore branch** 로 되살릴 수 있다.
+  - 레포의 자동 삭제 설정(Automatically delete head branches)은 켜지 않는다. 삭제 누락이 반복되면 그때 도입을 검토한다.
 
 ### 브랜치 네이밍 규칙
 
