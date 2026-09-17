@@ -102,7 +102,8 @@ def greet(name):
 
 ### 결과 (Outcome)
 - PR #33 상태 `CONFLICTING` → `MERGEABLE`. 최종 `greet` 는 빈 이름 검증 + 공백 제거 + f-string 느낌표를 모두 반영.
-- 관련: Issue #27 · PR #31 (머지 `5946b60`) · PR #33 (커밋 `6a8af4f` 옛 경로 수정, `1e37419` 충돌 해결) · 해결 기록 초안은 [PR #33 코멘트](https://github.com/codyssey-git-team/git-team/pull/33#issuecomment-5708561551)
+- PR #33 머지 `3e6e237` (2026-09-17 14:32, 작성자 머지) — whoawoodev Approve(새 경로 확인) · 팀장 Approve + 결합 결과 라인 코멘트(빈 이름 `ValueError`·`greet` 내부 `strip()` 모두 현행 유지, `farewell` 은 별도 Issue 로). Issue #27 close.
+- 관련: Issue #27 · PR #31 (머지 `5946b60`) · PR #33 (커밋 `6a8af4f` 옛 경로 수정, `1e37419` 충돌 해결, 머지 `3e6e237`) · 해결 기록 초안은 [PR #33 코멘트](https://github.com/codyssey-git-team/git-team/pull/33#issuecomment-5708561551)
 
 ### 배운 점 (Learnings)
 - **파일 이동·이름 변경은 착수 전에 채널에 공유한다.** 상대가 옛 경로에서 작업 중일 수 있고, GitHub 의 충돌 표시도 옛 경로로 뜬다.
