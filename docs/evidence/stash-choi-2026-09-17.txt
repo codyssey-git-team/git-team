@@ -1,0 +1,110 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260917170005
+Username: DESKTOP-9BA6BA5\CodexSandboxOffline
+RunAs User: DESKTOP-9BA6BA5\CodexSandboxOffline
+Configuration Name: 
+Machine: DESKTOP-9BA6BA5 (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$recordFile = 'E:\AI\Orca\Workspace\git-team\stash-2026-09-17.txt'; Start-Transcript -Path $recordFile -Force; git add docs/troubleshooting-log.md; git status --short; git switch main; git status --short; git -c remote.origin.url='E:\AI\Orca\Workspace\git-team' pull --ff-only; Stop-Transcript
+Process ID: 2804
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is E:\AI\Orca\Workspace\git-team\stash-2026-09-17.txt
+
+
+
+
+
+**********************
+Windows PowerShell transcript end
+End time: 20260917170006
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20260917170017
+Username: DESKTOP-9BA6BA5\CodexSandboxOffline
+RunAs User: DESKTOP-9BA6BA5\CodexSandboxOffline
+Configuration Name: 
+Machine: DESKTOP-9BA6BA5 (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$recordFile = 'E:\AI\Orca\Workspace\git-team\stash-2026-09-17.txt'; Start-Transcript -Path $recordFile -Append; git pull --ff-only . origin/main; Stop-Transcript
+Process ID: 15592
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is E:\AI\Orca\Workspace\git-team\stash-2026-09-17.txt
+
+**********************
+Windows PowerShell transcript end
+End time: 20260917170018
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20260917170035
+Username: DESKTOP-9BA6BA5\CodexSandboxOffline
+RunAs User: DESKTOP-9BA6BA5\CodexSandboxOffline
+Configuration Name: 
+Machine: DESKTOP-9BA6BA5 (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$recordFile = 'E:\AI\Orca\Workspace\git-team\stash-2026-09-17.txt'; Start-Transcript -Path $recordFile -Append; git stash push -m "wip: stash 시나리오 초안"; git stash list; git status --short; git merge --ff-only origin/main; git log --oneline -1; git switch feature/choi-log-stash; git merge --ff-only main; git stash pop; git status --short; git stash list; Stop-Transcript
+Process ID: 6232
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is E:\AI\Orca\Workspace\git-team\stash-2026-09-17.txt
+
+
+
+
+
+
+
+
+
+
+**********************
+Windows PowerShell transcript end
+End time: 20260917170050
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20260917170310
+Username: DESKTOP-9BA6BA5\CodexSandboxOffline
+RunAs User: DESKTOP-9BA6BA5\CodexSandboxOffline
+Configuration Name: 
+Machine: DESKTOP-9BA6BA5 (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$recordFile = 'E:\AI\Orca\Workspace\git-team\stash-2026-09-17.txt'; Start-Transcript -Path $recordFile -Append; git add docs/troubleshooting-log.md; git stash drop 'stash@{0}'; New-Item -ItemType Directory -Force docs/evidence | Out-Null; Copy-Item $recordFile 'docs/evidence/stash-choi-2026-09-17.txt' -Force; git add docs/troubleshooting-log.md docs/evidence/stash-choi-2026-09-17.txt; git diff --cached --check; git diff --cached main --stat; git status --short --branch; Stop-Transcript
+Process ID: 24112
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is E:\AI\Orca\Workspace\git-team\stash-2026-09-17.txt
+
+
