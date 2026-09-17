@@ -85,7 +85,7 @@ Git 트러블슈팅 4종(amend · reset · revert · stash)의 실습 기록. �
     - `--soft`: 커밋만 취소. 변경 사항은 staged 유지 → 바로 다시 커밋 가능
     - `--mixed` (기본값): 커밋 + staged 취소. 변경 사항은 working tree 에 남음 → `git add` 부터 다시
     - `--hard`: 커밋 + staged + working tree 변경 전부 삭제 → 작업 내용이 사라지므로 주의
-  - 실수로 잘못 reset 했다면 `git reflog` 로 이전 HEAD 를 찾아 `git reset --hard <해시>` 로 돌아올 수 있다 (reflog 는 로컬에만 있고 기본 90일 보관).
+  - 실수로 잘못 reset 했다면 `git reflog` 로 이전 HEAD 를 찾아 `git reset --hard <해시>` 로 돌아올 수 있다 (reflog 는 로컬에만 있고, 어느 브랜치에서도 닿지 않는 커밋의 항목은 기본 30일 · 닿는 항목은 90일 보관 — `gc.reflogExpireUnreachable` / `gc.reflogExpire`).
 
 ### 왜 이 방법을 선택했는가(Why)
 - 목적이 "커밋을 다른 브랜치로 옮기기" 라서 파일 변경은 그대로 두고 커밋만 풀어야 했다. `--soft` 는 staged 상태를 유지하므로 브랜치 전환 후 `git add` 없이 바로 `git commit` 만 하면 된다.
