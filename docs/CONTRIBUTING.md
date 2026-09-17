@@ -2,7 +2,57 @@
 
 ## 브랜치 전략 / 네이밍 규칙
 
-TODO(@Jeong-Yun-Choi)
+### GitHub Flow
+
+우리 팀은 GitHub Flow를 사용한다.
+
+- `main`: 항상 정상적으로 동작하는 상태를 유지한다.
+- `feature/*`: 기능 개발, 문서 작성 등 일반적인 작업 단위별 브랜치로 사용한다.
+- `fix/*`: 버그 수정 및 문제 해결 작업에 사용한다.
+- `hotfix/*`: `main`에서 발견된 긴급한 문제를 빠르게 수정해야 할 때 사용한다.
+- 모든 변경 사항은 작업 브랜치에서 수행하고 Pull Request를 통해 `main`에 병합한다.
+- `main` 브랜치에는 직접 push하지 않는다.
+
+### 브랜치 네이밍 규칙
+
+기능 개발 및 일반 작업:
+
+`feature/<name>-<topic>`
+
+예시:
+
+- `feature/member1-contributing-branch`
+- `feature/member2-string-utils`
+- `feature/member3-date-utils`
+
+버그 수정 및 문제 해결:
+
+`fix/<name>-<topic>`
+
+예시:
+
+- `fix/member1-price-rounding`
+- `fix/member4-revert-chunk-default`
+
+긴급 수정이 필요한 경우:
+
+`hotfix/<name>-<topic>`
+
+예시:
+
+- `hotfix/member1-critical-format-error`
+
+`hotfix/*` 브랜치는 `main`에서 즉시 수정이 필요한 긴급한 문제에 한해 사용하며,
+일반적인 버그 수정은 `fix/*` 브랜치를 사용한다.
+
+브랜치 이름에는 작업자와 작업 내용을 식별할 수 있는 정보를 포함한다.
+
+### GitHub Flow를 선택한 이유
+
+1. 작업 단위별로 브랜치를 분리하여 여러 팀원이 동시에 작업하기 쉽다.
+2. 모든 변경을 PR과 리뷰를 통해 병합하므로 `main`을 안정적인 상태로 유지할 수 있다.
+3. Issue, PR, 리뷰 기록이 남아 작업 과정과 변경 이유를 추적하기 쉽다.
+
 
 
 
@@ -87,10 +137,53 @@ Closes #42
 
 ## PR 규칙 / 코드 리뷰 규칙
 
-TODO(@whoawoodev)
+### PR 본문 필수 항목
+- `Closes #이슈번호` — 어떤 이슈를 처리하는 PR인지
+- What — 무엇을 바꿨는지
+- Why — 왜 바꿨는지
+- How — 어떻게 테스트/검증했는지
+
+### 병합 조건
+- 리뷰어 1명 이상 Approve
+
+### 코드 리뷰 규칙
+- "LGTM"만 남기는 리뷰 금지. 코드 줄을 지정한 실질 코멘트 1개 이상
+- 리뷰는 Conversation 일반 코멘트가 아니라 Files changed 라인 코멘트 → Review changes(Approve / Request changes)로 제출
+- 작성자는 코멘트를 반영한 커밋을 push한 뒤 그 스레드에 "반영했습니다: <커밋 해시>" 답글
+- 좋은 코멘트 예시
+  - "이 함수에 음수가 들어오면 어떻게 되나요?"
+  - "docstring에 반환 타입도 적어주면 좋겠습니다."
+  - "빈 리스트일 때 IndexError가 날 것 같습니다."
+- 예시: [PR #6](https://github.com/codyssey-git-team/git-team/pull/6)의 리뷰 스레드
+
 
 
 
 ## 충돌 대응 흐름
 
-TODO(@sangwoo-codyssey)
+충돌은 "같은 파일의 같은 부분을 두 브랜치가 다르게 고쳤다"는 신호일 뿐, 사고가 아니다.
+아래 순서대로 처리하고 반드시 기록을 남긴다.
+
+1. **발견** — PR 화면에 `This branch has conflicts` 가 뜨거나, `git merge` / `git pull` 결과에
+   `CONFLICT (content): Merge conflict in <파일>` 이 찍히면 충돌이다.
+2. **공유** — 해결하기 전에 팀 채널에 먼저 알린다. 어떤 PR 과 어떤 PR 이 어느 파일에서 부딪혔는지
+   한 줄이면 된다. 상대 브랜치 작성자에게 "누가 해결할지" 를 정한다.
+3. **해결** — 원칙은 **나중에 머지하려는 PR 의 작성자가 자기 브랜치에서** 해결한다.
+   "먼저 발견한 사람" 으로 정하면 발견한 사람과 그 브랜치를 실제로 고칠 사람이 달라질 수 있어
+   역할이 애매해지기 때문이다. `main` 이나 상대 브랜치를 직접 고치지 않는다.
+   ```bash
+   git switch feature/<내-브랜치>
+   git fetch origin
+   git merge origin/main          # 충돌 마커(<<<<<<< ======= >>>>>>>) 가 파일에 생긴다
+   # 파일을 열어 마커를 지우며 최종 내용을 정한다 (keep both / choose one / refactor)
+   git add <해결한 파일>
+   git commit                     # 머지 커밋 메시지는 기본값 그대로 둬도 된다
+   git push origin feature/<내-브랜치>
+   ```
+   해결 전략을 고를 때는 "상대 변경의 의도를 살리는가" 를 먼저 본다. 확신이 없으면 상대에게 묻고 정한다.
+   공유 브랜치에서 `rebase` / `push --force` 는 쓰지 않는다.
+4. **기록** — 해결한 사람이 `docs/conflict-resolution.md` 에 항목을 추가한다.
+   참여자(작성자/상대), 상황(브랜치·파일), 충돌 마커 원문, 선택한 전략과 이유, 실제 실행한 명령, 결과(PR 링크), 배운 점을 적는다.
+   기록은 **같은 PR 에 커밋으로 포함하거나** 별도 `docs:` PR 로 올린다.
+5. **리뷰 재요청** — 충돌 해결 커밋이 push 되면 리뷰어에게 재리뷰를 요청한다.
+   리뷰어는 머지 커밋의 diff 에서 "충돌 해결 부분만" 다시 본다.
