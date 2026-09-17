@@ -1,4 +1,5 @@
-*   b8557f0 (HEAD -> feature/sangwoo-submission) Merge branch 'main' into feature/sangwoo-submission
+* 3d5e26b (HEAD -> feature/sangwoo-submission, origin/feature/sangwoo-submission) docs: git 히스토리 증빙과 SUBMISSION 예정 항목 채움
+*   b8557f0 Merge branch 'main' into feature/sangwoo-submission
 |\  
 | *   6a4aa8d (origin/main, origin/HEAD, main) Merge pull request #54 from codyssey-git-team/feature/choi-log-stash
 | |\  
