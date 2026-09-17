@@ -7,7 +7,7 @@ def greet(name):
     앞뒤 공백을 제거한 이름을 사용하며, 빈 이름이면 ValueError 를 발생시킨다.
 
     >>> greet(" Kim ")
-    'Hello, Kim'
+    'Hello, Kim!'
     >>> greet("   ")
     Traceback (most recent call last):
         ...
@@ -15,7 +15,7 @@ def greet(name):
     """
     if not name.strip():
         raise ValueError("name must not be empty")
-    return "Hello, " + name.strip()
+    return f"Hello, {name.strip()}!"
 
 
 def farewell(name):
