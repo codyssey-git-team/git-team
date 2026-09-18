@@ -1,0 +1,169 @@
+* 3d5e26b (HEAD -> feature/sangwoo-submission, origin/feature/sangwoo-submission) docs: git 히스토리 증빙과 SUBMISSION 예정 항목 채움
+*   b8557f0 Merge branch 'main' into feature/sangwoo-submission
+|\  
+| *   6a4aa8d (origin/main, origin/HEAD, main) Merge pull request #54 from codyssey-git-team/feature/choi-log-stash
+| |\  
+| | * 1f171b4 (origin/feature/choi-log-stash) docs: summarize stash scenario participants
+| | * 9d21eed docs: correct stash conflict details
+| | * 3bf3c03 docs: troubleshooting-log stash 시나리오 기록
+* | | 7fbd63d docs: SUBMISSION.md 초안과 보호 규칙·CODEOWNERS 증빙 추가
+|/ /  
+* |   d8fd36d Merge pull request #53 from codyssey-git-team/feature/p516n-log-amend
+|\ \  
+| |/  
+|/|   
+| * 57951b3 (origin/feature/p516n-log-amend) docs: troubleshooting sqaush 해시 오타 수정
+| * f3d28a3 docs: amend 시나리오에 squash 후 커밋 해시 표기 추가
+| * f78fc83 docs: troubleshooting-log amend 시나리오 기록
+|/  
+*   e440890 Merge pull request #50 from codyssey-git-team/feature/whoawoodev-log-reset
+|\  
+| * 227465c (origin/feature/whoawoodev-log-reset) docs: correct reflog retention for unreachable commits in reset scenario
+| * 3899342 docs: add reset scenario to troubleshooting-log
+* |   715bb24 Merge pull request #41 from codyssey-git-team/docs/p516n-conflict-1
+|\ \  
+| |/  
+|/|   
+| * d248d7c (origin/Docs/p516n-conflict-1) docs: conflict-resolution 충돌 #1 기록 추가
+* |   75b6470 Merge pull request #48 from codyssey-git-team/feature/sangwoo-log-revert
+|\ \  
+| * | 089d3f3 docs: revert 기록의 재머지 주의점에 실제 실행 출력 추가
+| * | 6fb6b76 docs: troubleshooting-log revert 시나리오 기록
+|/ /  
+* |   34383fc Merge pull request #46 from codyssey-git-team/feature/sangwoo-troubleshooting-skeleton
+|\ \  
+| * | 2249ab1 docs: troubleshooting-log 뼈대 추가 — 시나리오 4개 제목과 담당 TODO
+|/ /  
+* |   d65177e Merge pull request #44 from codyssey-git-team/fix/sangwoo-revert-chunk-default
+|\ \  
+| * | af2012f Revert "Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size"
+* | |   e1594d1 Merge pull request #43 from codyssey-git-team/feature/whoawoodev-codeowners
+|\ \ \  
+| |/ /  
+|/| |   
+| * | ed0788f (origin/feature/whoawoodev-codeowners) chore: add CODEOWNERS for path-based reviewer assignment
+| |/  
+* |   103473f Merge pull request #39 from codyssey-git-team/feature/sangwoo-list-default-size
+|\ \  
+| |/  
+|/|   
+| * 72106f0 feat: chunk size 생략 시 자르지 않고 통째로 반환
+|/  
+*   00a7b04 Merge pull request #35 from codyssey-git-team/feature/sangwoo-conflict-log
+|\  
+| * e0b0050 docs: 충돌 #2 결과에 PR #33 머지 SHA 추가
+| * f8b08af docs: 충돌 #2 배운 점의 rename 감지 설명 정정
+| * fdd467f docs: conflict-resolution 뼈대 및 충돌 #2 기록 추가
+* |   3e6e237 Merge pull request #33 from codyssey-git-team/feature/sangwoo-greet-validation
+|\ \  
+| * | 1e37419 fix: rename 충돌 해결 및 greeting.py 에 빈 이름 검증 적용
+| |\| 
+| * | 6a8af4f feat: greet 빈 이름 검증 추가
+* | |   6404a49 Merge pull request #28 from codyssey-git-team/feature/p516n-price-comma
+|\ \ \  
+| * \ \   f254ca2 (origin/feature/p516n-price-comma) Merge branch 'main' into feature/p516n-price-comma
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | |   95755ec Merge pull request #32 from codyssey-git-team/feature/choi-price-rounding
+|\ \ \ \  
+| |_|_|/  
+|/| | |   
+| * | | b1951b2 (origin/feature/choi-price-rounding) fix: format_price 소수점 반올림
+* | | |   5946b60 Merge pull request #31 from codyssey-git-team/feature/whoawoodev-move-helpers
+|\ \ \ \  
+| |_|_|/  
+|/| | |   
+| * | | 10092ca (origin/feature/whoawoodev-move-helpers) refactor: use f-string in greet
+| * | | fed6888 refactor: move helpers.py into utils package as greeting.py
+|/ / /  
+* | |   75bcafc Merge pull request #24 from codyssey-git-team/feature/sangwoo-branch-cleanup-rule
+|\ \ \  
+| * | | 55dbdf2 docs: 브랜치 삭제 주체를 PR 작성자로 명시하고 자동 삭제 설정은 보류
+| * | | e7b07e2 docs: 병합 완료 브랜치 삭제 규칙 추가
+* | | |   b7f260e Merge pull request #25 from codyssey-git-team/feature/choi-math-utils
+|\ \ \ \  
+| | |/ /  
+| |/| |   
+| * | | a2150c6 (origin/feature/choi-math-utils) fix: clamp 범위 유효성 검사 추가
+| * | | 21420f4 feat: clamp 함수 추가
+| |/ /  
+| | * 37f3225 feat: format_price 천 단위 쉼표 추가
+| |/  
+|/|   
+* |   9700c86 Merge pull request #19 from codyssey-git-team/feature/P516n-string-utils
+|\ \  
+| |/  
+|/|   
+| * d3a6544 (origin/feature/P516n-string-utils) fix: string_utils 케이스 변환 시 선행 밑줄 보존 및 대문자화 로직 수정
+| * 8a04190 docs: Format function names in README table
+| *   ca4af78 Merge branch 'main' into feature/P516n-string-utils
+| |\  
+| |/  
+|/|   
+* |   804eeec Merge pull request #21 from codyssey-git-team/feature/choi-contributing-branch
+|\ \  
+| * \   fdbee25 (origin/feature/choi-contributing-branch) Merge branch 'main' into feature/choi-contributing-branch
+| |\ \  
+| |/ /  
+|/| |   
+* | |   bfa4787 Merge pull request #16 from codyssey-git-team/feature/sangwoo-list-utils
+|\ \ \  
+| * \ \   10c6a3e Merge branch 'main' into feature/sangwoo-list-utils
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | |   dca7855 Merge pull request #18 from codyssey-git-team/revert-14-feature/choi-contributing-branch
+|\ \ \ \  
+| | * | | b9ee286 docs: 유틸 함수 표에 chunk 추가
+| | * | | 5a55714 feat: chunk 리스트 분할 유틸 추가
+| | | * | 45f0831 docs: 브랜치 전략 및 네이밍 규칙 추가
+| | | | *   16bc34e Merge branch 'feature/P516n-string-utils' of https://github.com/codyssey-git-team/git-team into feature/P516n-string-utils
+| | | | |\  
+| | | | | * 2381602 feat: string_utils 카멜, 스네이크 유틸함수 구현
+| | | | * | c87f437 feat: string_utils 카멜, 스네이크, 파스칼 유틸함수 구현
+| | | | |/  
+| | | | | * 4026e30 (origin/revert-14-feature/choi-contributing-branch) docs: 브랜치 전략 및 핫픽스 네이밍 규칙 추가
+| | |_|_|/  
+| |/| | |   
+| * | | | 35fc0ea Revert "docs: 브랜치 전략 및 네이밍 규칙 추가"
+|/ / / /  
+* | | |   8b3c5f4 Merge pull request #14 from codyssey-git-team/feature/choi-contributing-branch
+|\ \ \ \  
+| | |/ /  
+| |/| |   
+| * | | 7167eb9 docs: 브랜치 전략 및 네이밍 규칙 추가
+| |/ /  
+* | |   104e68c Merge pull request #13 from codyssey-git-team/feature/whoawoodev-date-utils
+|\ \ \  
+| |/ /  
+|/| |   
+| * | 33cc40a docs: clarify absolute-days behavior in days_between docstring
+| * | 8f9b527 docs: add days_between to util function table
+| * | 1673b46 feat: add days_between date util
+* | |   6389106 Merge pull request #8 from codyssey-git-team/feature/sangwoo-contributing-conflict
+|\ \ \  
+| |/ /  
+|/| |   
+| * | 3ef6f45 docs: 충돌 해결 주체를 나중에 머지하는 쪽으로 정한 이유 추가
+| * | 73bf724 docs: CONTRIBUTING 에 충돌 대응 흐름 추가
+* | |   9157387 Merge pull request #9 from codyssey-git-team/feature/whoawoodev-contributing-review
+|\ \ \  
+| |_|/  
+|/| |   
+| * | 78ddcd3 docs: add review submission and reply rules per review
+| * | 3fb6450 docs: add PR and code review rules
+| |/  
+* |   1009c99 Merge pull request #6 from codyssey-git-team/Docs/commit-convention
+|\ \  
+| |/  
+|/|   
+| * 213dbdf (origin/Docs/commit-convention) docs: CONTRIBUTING.md 커밋 메시지 컨벤션에 금지 조항 추가
+| * cac0ff2 docs: CONTRIBUTING.md에 커밋 메시지 컨벤션 작성
+|/  
+* 159c3df chore: 저장소 뼈대와 시드 파일 추가
+*   a37249d Merge pull request #2 from codyssey-git-team/feature/sangwoo-issue-pr-templates
+|\  
+| * 382f9ec docs: GitHub 이슈/PR 템플릿 추가
+|/  
+* ac33162 chore: 저장소 초기화 (.gitignore 추가)

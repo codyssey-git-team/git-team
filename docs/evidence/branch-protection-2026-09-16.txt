@@ -1,0 +1,21 @@
+$ date
+2026-09-16 14:34:50 KST
+
+$ echo test >> README.md && git commit -am "test: verify branch protection"
+6c2c071 test: verify branch protection
+
+$ git push origin main
+remote: error: GH006: Protected branch update failed for refs/heads/main.        
+remote: 
+remote: - Changes must be made through a pull request.        
+To https://github.com/codyssey-git-team/git-team.git
+ ! [remote rejected] main -> main (protected branch hook declined)
+error: failed to push some refs to 'https://github.com/codyssey-git-team/git-team.git'
+(exit=1)
+
+$ git reset --hard HEAD~1
+HEAD is now at 159c3df chore: 저장소 뼈대와 시드 파일 추가
+
+$ git log --oneline -1 && git status --short
+159c3df chore: 저장소 뼈대와 시드 파일 추가
+(clean)
